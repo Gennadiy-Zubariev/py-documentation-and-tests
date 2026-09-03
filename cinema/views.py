@@ -96,7 +96,7 @@ class MovieViewSet(
                 type=int,
                 many=True,
                 description="Filter by actors id (ex. ?actors=1,3)",
-            )
+            ),
         ]
     )
     def list(self, request, *args, **kwargs):
@@ -173,13 +173,11 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
             OpenApiParameter(
                 "date",
                 type=date,
-                description="Filter by date (ex. &date=2026-06-06)"
+                description="Filter by date (ex. &date=2026-06-06)",
             ),
             OpenApiParameter(
-                "movie",
-                type=int,
-                description="Filter by movie (ex. &movie=2)"
-            )
+                "movie", type=int, description="Filter by movie (ex. &movie=2)"
+            ),
         ]
     )
     def list(self, request, *args, **kwargs):
@@ -189,7 +187,7 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
         date = self.request.query_params.get("date")
         movie_id_str = self.request.query_params.get("movie")
 
-        queryset = self.queryset
+        queryset = self.queryset.all()
 
         if date:
             date = datetime.strptime(date, "%Y-%m-%d").date()
