@@ -120,14 +120,7 @@ class AuthenticatedCinemaAPITest(TestCase):
                 movie_session=session, row=1, order=order, seat=i + 1
             )
 
-        print("Tickets in DB:", Ticket.objects.count())
-        print(
-            "Tickets for session:",
-            Ticket.objects.filter(movie_session=session).count(),
-        )
-
         result = self.client.get(MOVIE_SESSION_URL)
-        print("Response:", result.data)
         self.assertEqual(
             result.data[0]["tickets_available"],
             session.cinema_hall.capacity - num_tickets,
